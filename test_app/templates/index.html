@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Space4Life</title>
+    <!-- [START css] -->
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css">
+    <!-- [END css] -->
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+      blockquote {
+        margin-bottom: 10px;
+        border-left-color: #bbb;
+      }
+      form {
+        margin-top: 10px;
+      }
+      .form-signin input[type="text"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+      .row {
+        margin-left: 0px;
+        margin-top: 10px;
+        overflow: scroll;
+      }
+	  
+	  .flex-container {
+		display: flex;
+	  }
+
+	  .flex-child_radiobutton {
+		width:30%;
+	  }  
+	  .flex-child_map {
+		width:70%;
+	  }  
+
+	  .flex-child:first-child {
+		margin-right: 20px;
+	  } 
+	  
+	  .center {
+		margin: auto;
+		width: 90%;
+		padding: 10px;
+		}
+    </style>
+  </head>
+  <body>
+	<h1>Animal behaviour in natural disasters</h1>
+	
+	<div class="flex-container">
+	<div class="flex-child_radiobutton magenta">
+		<div class="center">
+			<form name="myForm" action="" method="post" onsubmit="">
+				<input type="radio" name="options" id="option1" value="hurricans" checked> Hurricanes and storms <br>
+				<input type="radio" name="options" id="option2" value="fires"> Fires <br>
+			</form>
+		</div>
+	</div>
+
+		<!--<div class="flex-child_radiobutton magenta">
+			<div class="center">
+				<input type="radio" id="hurricanes" name="option" value="h" checked>
+				<label for="hurricanes">Hurricanes and storms</label><br>
+				<p></p>
+				<input type="radio" id="fires" name="option" value="f">
+				<label for="fires">Fires</label><br>
+			</div>
+		</div>-->
+  
+		<div class="flex-child_map">
+			{{map_var}}
+		</div>
+  
+	</div>
+  
+  </body>
+</html>
