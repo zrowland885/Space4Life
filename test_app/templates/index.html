@@ -60,25 +60,15 @@
 	<div class="flex-child_radiobutton magenta">
 		<div class="center">
 			<form name="myForm" action="" method="post" onsubmit="">
-				<input type="radio" name="options" id="option1" value="hurricans" checked="checked"> Hurricanes and storms <br>
+				<input type="radio" name="options" id="option1" value="hurricanes" checked="checked"> Hurricanes and storms <br>
 				<input type="radio" name="options" id="option2" value="fires"> Fires <br>
 				<p><input type=submit value=Next></p>
 			</form>
 		</div>
 	</div>
-
-		<!--<div class="flex-child_radiobutton magenta">
-			<div class="center">
-				<input type="radio" id="hurricanes" name="option" value="h" checked>
-				<label for="hurricanes">Hurricanes and storms</label><br>
-				<p></p>
-				<input type="radio" id="fires" name="option" value="f">
-				<label for="fires">Fires</label><br>
-			</div>
-		</div>-->
   
 		<div class="flex-child_map">
-			{{map_var}}
+		{{ plot|safe }}
 		</div>
   
 	</div>
