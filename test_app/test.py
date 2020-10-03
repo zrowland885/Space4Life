@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sys
 
 
@@ -12,10 +12,10 @@ def index():
 
 @app.route('/', methods=['POST','GET'])
 def msg_management():
-    print('in post', file=sys.stdout)
     selectedValue = request.form['options']
     print('selectedvalue =', file=sys.stdout)
     print(selectedValue)
+    return None
     
  
     
