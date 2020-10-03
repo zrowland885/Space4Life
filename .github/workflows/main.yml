@@ -1,0 +1,17 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.5.7 # This is the action
+        with:
+          heroku_api_key: ${{secrets.2d143544-b896-4a08-8ff1-badea8730c4a}}
+          heroku_app_name: "Space4Life" #Must be unique in Heroku
+          heroku_email: "zrowland885@gmail.com"
