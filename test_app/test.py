@@ -62,7 +62,7 @@ def create_plot(plot, source, color):
 def getMap():
     output_notebook()
     date_user = "20150701"
-    data = xr.open_dataset('/mnt/D_DRIVE/Space_Apps/Dataset_precipitation/3B-DAY.MS.MRG.3IMERG.'+date_user+'-S000000-E235959.V06.nc4.nc4')
+    data = xr.open_dataset('Dataset_precipitation/3B-DAY.MS.MRG.3IMERG.'+date_user+'-S000000-E235959.V06.nc4.nc4')
     
     # Range 1 : 20 to 80
     data1 = (data['precipitationCal'].values > 20) & (data['precipitationCal'].values < 80)
