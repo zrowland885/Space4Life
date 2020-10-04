@@ -25,7 +25,20 @@ def wgs84_to_web_mercator(lon, lat, df=None):
     else:
         lonMER = lon.astype(float) * (k * np.pi/180.0)
         latMER = np.log(np.tan((90 + lat.astype(float)) * np.pi/360.0)) * k
-        return pd.DataFrame({'LAT': latMER, 'LON': lonMER}) 
+        return pd.DataFrame({'LAT': latMER, 'LON': lonMER})
+
+def wgs84_to_web_mercator_rad(lon, lat, df=None):
+    """Converts decimal longitude/latitude to Web Mercator format"""
+    zoom_level = 3
+    
+    if isinstance(df, pd.DataFrame):
+        df['MERC_LON'] = pd.to_numeric(df[lon], errors='coerce') * (k * np.pi/180.0)
+        df['MERC_LAT'] = np.log(np.tan((90 + pd.to_numeric(df[lat], errors='coerce').astype(float)) * np.pi/360.0)) * k
+        return df
+    else:
+        lonMER = (256/2*np.pi)* 2**zoom_level *(lon.astype(float) * np.pi)
+        latMER = (256/2*np.pi)* 2**zoom_level *(np.pi - np.log(np.tan((np.pi/4)+(lat/2))))
+        return pd.DataFrame({'LAT': latMER, 'LON': lonMER})
 
 def getPrecipMap(plot, date_user):
     
@@ -74,6 +87,8 @@ def getPrecipMap(plot, date_user):
     lon6 = data.lon.values[tripla6[1]]
     lat6 = data.lat.values[tripla6[2]]
 
+    print('precip_lat1: ',lat1,'precip_lon1: ',lon1)
+
     source1 = ColumnDataSource(
     data=wgs84_to_web_mercator(lon1, lat1))
     source2 = ColumnDataSource(
@@ -107,12 +122,7 @@ def getFireMap(plot):
     data = get_modis_data(date_user, directory='data/MOD14A2/')
     
     for tile in data:
-        
-        
-        # Cat 3 non-fire water
-        #cat3 = tile[2] == 3
-        # Cat 5 non-fire land
-        #cat5 = tile[2] == 5
+
         # Cat 7 fire (low confidence)
         cat7 = tile[2] == 7
         # Cat 8 fire (nominal confidence)
@@ -123,7 +133,6 @@ def getFireMap(plot):
         # catX = (tile[2] != 7) & (tile[2] != 8) & (tile[2] != 9)
     
         # Range 1
-        # tripla1[0] corresponds to time coord, tripla1[1] corresponds to lon, tripla1[2] corresponds to lat
         tripla1 = np.where(cat7 == True)
         lon1 = tile[1][tripla1[1]][:,0]
         lat1 = tile[0][tripla1[0]][:,0]
@@ -135,31 +144,20 @@ def getFireMap(plot):
         tripla3 = np.where(cat9 == True)
         lon3 = tile[1][tripla3[1]][:,0]
         lat3 = tile[0][tripla3[0]][:,0]
-        
-        """
-        # Range 4
-        tripla4 = np.where(cat3 == True)
-        lon4 = tile[1][tripla4[1]][:,0]
-        lat4 = tile[0][tripla4[0]][:,0]
-        # Range 5
-        tripla5 = np.where(cat5 == True)
-        lon5 = tile[1][tripla5[1]][:,0]
-        lat5 = tile[0][tripla5[0]][:,0]
-        """
-        
-        print(lat1, lon1)
 
         source1 = ColumnDataSource(data=wgs84_to_web_mercator(lon1, lat1))
         source2 = ColumnDataSource(data=wgs84_to_web_mercator(lon2, lat2))
         source3 = ColumnDataSource(data=wgs84_to_web_mercator(lon3, lat3))
-        #source4 = ColumnDataSource(data=wgs84_to_web_mercator(lon4, lat4))
-        #source5 = ColumnDataSource(data=wgs84_to_web_mercator(lon5, lat5))
+        
+        print(pd.DataFrame({'LAT': lat1.astype(float), 'LON': lon1.astype(float)}))
+        
+        #source1 = ColumnDataSource(data=pd.DataFrame({'LAT': lat1, 'LON': lon1}))
+        #source2 = ColumnDataSource(data=pd.DataFrame({'LAT': lat2, 'LON': lon2}))
+        #source3 = ColumnDataSource(data=pd.DataFrame({'LAT': lat3, 'LON': lon3}))
     
         create_plot_fire(plot, source1,'#F1C40F')
         create_plot_fire(plot, source2,'#E67E22')
         create_plot_fire(plot, source3,'#C0392B')
-        #create_plot_fire(plot, source4,'#AED6F1')
-        #create_plot_fire(plot, source5,'#7DCEA0')
             
 
 def getMap(date_user):
