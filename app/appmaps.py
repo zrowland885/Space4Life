@@ -149,18 +149,13 @@ def getFireMap(plot):
         source2 = ColumnDataSource(data=wgs84_to_web_mercator(lon2, lat2))
         source3 = ColumnDataSource(data=wgs84_to_web_mercator(lon3, lat3))
         
-        print(pd.DataFrame({'LAT': lat1.astype(float), 'LON': lon1.astype(float)}))
-        
-        #source1 = ColumnDataSource(data=pd.DataFrame({'LAT': lat1, 'LON': lon1}))
-        #source2 = ColumnDataSource(data=pd.DataFrame({'LAT': lat2, 'LON': lon2}))
-        #source3 = ColumnDataSource(data=pd.DataFrame({'LAT': lat3, 'LON': lon3}))
     
         create_plot_fire(plot, source1,'#F1C40F')
         create_plot_fire(plot, source2,'#E67E22')
         create_plot_fire(plot, source3,'#C0392B')
             
 
-def getMap(date_user):
+def getMap(date_user, sel=1):
     
     """FIGURE"""
     
@@ -185,12 +180,10 @@ def getMap(date_user):
     
     
     """PRECIPITATION LAYER"""
-    
-    getPrecipMap(plot, date_user)
-    
-    """FIRE LAYER"""
-    
-    getFireMap(plot)
+    if sel == 1:
+        getPrecipMap(plot, date_user)
+    else:   """FIRE LAYER"""
+        getFireMap(plot)
     
     """MOVEBANK LAYER"""
     

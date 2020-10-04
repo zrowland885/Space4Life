@@ -142,10 +142,12 @@
 		<h1>Animal behaviour in natural disasters</h1>
 	</div>
 	<div class="explanation">
-		<p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-		since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five 
-		centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
-		sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+		<p> The aim of our project is to correlate the animal behavior with natural extreme events. The results of this study could reveal 
+		some useful information to protect biodiversity and predict natural disasters. For instance, the correlation results can show the 
+		preferences of shelter of some species giving the possibility of taking actions depending on their suitability in terms of evolution 
+		of the event (fires, hurricanes, tsunamis, etc.). In addition, detecting anomalous movements on certain animals could also improve the 
+		detection time of such kinds of disasters.
+
 	</p>
 	</div>
 	<div class="flex-container">
@@ -230,7 +232,14 @@
 		document.getElementById('time').textContent = times[parseInt(document.getElementById('slider').value,10)];
 		send_data(times[parseInt(document.getElementById('slider').value,10)]);
 		
-				
+		document.getElementById('option1').onclick() = function() {
+			document.getElementById('slidecontainer').style.visibility = "visible"; 
+		}
+		document.getElementById('option2').onclick() = function() {
+			document.getElementById('slidecontainer').style.visibility = "hidden"; 
+		}
+		
+		
 		document.getElementById('slider').addEventListener('input', function (e) {
 			var t = parseInt(e.target.value, 10);
 			document.getElementById('time').textContent = times[t];

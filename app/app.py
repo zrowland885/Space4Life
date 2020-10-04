@@ -15,35 +15,33 @@ app = Flask(__name__)
 
 last_date = "20150601"
 
-
+# Load the template by default
 @app.route('/')
 def index():
     html = file_html(getMap(last_date), CDN, "my plot")
     return render_template("index.html", plot=html)
 
+# Receive the selected date for the high precipitation study
 @app.route('/api', methods = ['POST','GET'])
 def api():
     date = request.values.get('data', '')
     date_f = date.split("-")
-    print(date_f[0]+date_f[1]+date_f[2])
     global last_date
     last_date = date_f[0]+date_f[1]+date_f[2]
     html = file_html(getMap(last_date), CDN, "my plot") 
     return html
     
-    
+# Render the correct template depending on the scenario   
 @app.route('/', methods=['POST','GET'])
 def msg_management():
     selectedValue = request.form['options']
 
     if selectedValue == "hurricanes":
-        print('selectedvalue =', file=sys.stdout)
-        print(selectedValue)
         html = file_html(getMap(last_date), CDN, "my plot")
         return render_template('index.html', plot=html)       
     else:
-        print("fires\n")              
-        return render_template("index.html")
+        html = file_html(getMap(last_date, 2), CDN, "my plot")         
+        return render_template("index.html", plot=html)
 
 
 if __name__ == '__main__':
