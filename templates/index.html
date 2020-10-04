@@ -134,6 +134,10 @@
 		  font-weight: bold;
 		  padding:7px;
 		}
+		
+		.opacity{
+		  opacity:0.5;
+		 }
 
     </style>
   </head>
@@ -145,7 +149,7 @@
 		<p> The aim of our project is to correlate the animal behavior with natural extreme events. The results of this study could reveal 
 		some useful information to protect biodiversity and predict natural disasters. For instance, the correlation results can show the 
 		preferences of shelter of some species giving the possibility of taking actions depending on their suitability in terms of evolution 
-		of the event (fires, hurricanes, tsunamis, etc.). In addition, detecting anomalous movements on certain animals could also improve the 
+		of the event (fires, hurricanes, tsunamis, etc.). In addition, detecting anomalous movements of certain animals could also improve the 
 		detection time of such kinds of disasters.
 
 	</p>
@@ -163,7 +167,7 @@
 				</label>
 				<label>
 				<input class="radio_pos" type="radio" name="options" id="option2" value="fires">
-				<img class="radio_imgs shadow" src="{{ url_for('static', filename='wildfire.jpg') }}"></br>
+				<img class="radio_imgs shadow opacity" src="{{ url_for('static', filename='wildfire.jpg') }}"></br>
 				</label>
 				<p><input class="radio_pos shadow" type=submit value=Submit></p>
 			</form>
@@ -179,6 +183,7 @@
 		
 		
 	<script>
+		document.getElementById("option2").disabled = true;
 		var times = new Array(183);
 
 		for (i = 1; i <= 183; i++){

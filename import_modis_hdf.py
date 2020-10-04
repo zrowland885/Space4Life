@@ -1,7 +1,7 @@
-from pyhdf.SD import SD, SDC
+#from pyhdf.SD import SD, SDC
 #import pprint
 #from matplotlib import pyplot as plt
-import numpy as np
+"""import numpy as np
 import os
 import datetime
 import pickle
@@ -130,3 +130,4 @@ def pickle_modis_data(directory='data/MOD14A2/'):
         pickle.dump(modis_data, f)
 
     return modis_data
+"""
