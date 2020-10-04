@@ -3,6 +3,7 @@ import numpy as np
 from netCDF4 import Dataset
 import xarray as xr
 import pandas as pd
+import datetime
 
 # Mapping
 from bokeh.models import *
@@ -46,6 +47,11 @@ def getPrecipMap(plot, date_user):
         plot.circle(x='LON', y='LAT', size=5, fill_color=color, line_color = color, fill_alpha=0.5, line_alpha=0., source=source)
     
     #date_user = "20150701"
+    date_user_f = date_user.split("-")
+    date_user = date_user_f[0]+date_user_f[1]+date_user_f[2]
+    print("date_user for precipitation")
+    print(date_user)
+    
     data = xr.open_dataset('data/Dataset_precipitation/3B-DAY.MS.MRG.3IMERG.'+date_user+'-S000000-E235959.V06.nc4.nc4')
     
     # Range 1 : 20 to 80
@@ -182,10 +188,11 @@ def getMap(date_user, sel=1):
     """PRECIPITATION LAYER"""
     if sel == 1:
         getPrecipMap(plot, date_user)
-    else:   """FIRE LAYER"""
+    else:
         getFireMap(plot)
     
     """MOVEBANK LAYER"""
+
     
     dfAnimals = pd.read_csv('data/movebank/Brown pelican data from Lamb et al. (2017).csv')
     
@@ -193,7 +200,10 @@ def getMap(date_user, sel=1):
     dfAnimals = dfAnimals.sort_values('timestamp')
     dfAnimals = wgs84_to_web_mercator('location-long', 'location-lat', dfAnimals)
     
-    datemask = (dfAnimals['timestamp'] >= '2015-6-1') & (dfAnimals['timestamp'] < '2015-12-1')
+    datec = datetime.datetime.strptime(date_user,'%Y-%m-%d')
+    datec_1 = datec + datetime.timedelta(days=1)
+
+    datemask = (dfAnimals['timestamp'] >= datec) & (dfAnimals['timestamp'] < datec_1 )
     dfAnimals = dfAnimals.loc[datemask]
     
     animal_ids = dfAnimals['individual-local-identifier'].unique().tolist()

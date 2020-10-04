@@ -237,13 +237,6 @@
 		document.getElementById('time').textContent = times[parseInt(document.getElementById('slider').value,10)];
 		send_data(times[parseInt(document.getElementById('slider').value,10)]);
 		
-		document.getElementById('option1').onclick() = function() {
-			document.getElementById('slidecontainer').style.visibility = "visible"; 
-		}
-		document.getElementById('option2').onclick() = function() {
-			document.getElementById('slidecontainer').style.visibility = "hidden"; 
-		}
-		
 		
 		document.getElementById('slider').addEventListener('input', function (e) {
 			var t = parseInt(e.target.value, 10);

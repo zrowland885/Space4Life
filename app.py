@@ -13,7 +13,8 @@ from appmaps import getMap
 
 app = Flask(__name__)
 
-last_date = "20150601"
+last_date = "2015-06-01"
+
 
 # Load the template by default
 @app.route('/')
@@ -25,9 +26,8 @@ def index():
 @app.route('/api', methods = ['POST','GET'])
 def api():
     date = request.values.get('data', '')
-    date_f = date.split("-")
     global last_date
-    last_date = date_f[0]+date_f[1]+date_f[2]
+    last_date = date
     html = file_html(getMap(last_date), CDN, "my plot") 
     return html
     
