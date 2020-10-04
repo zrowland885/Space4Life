@@ -27,32 +27,7 @@ def wgs84_to_web_mercator(lon, lat, df=None):
         latMER = np.log(np.tan((90 + lat.astype(float)) * np.pi/360.0)) * k
         return pd.DataFrame({'LAT': latMER, 'LON': lonMER}) 
 
-
-def getMap(date_user):
-    
-    """FIGURE"""
-    
-    tile_provider = get_provider(Vendors.STAMEN_TERRAIN)
-
-    plot = figure(
-        title='Space4Life',
-        match_aspect=True,
-        tools='wheel_zoom,pan,reset,save',
-        x_axis_type='mercator',
-        y_axis_type='mercator',
-        plot_width=1000,
-        plot_height=750
-        )
-
-    plot.grid.visible=True
-    map = plot.add_tile(tile_provider)
-    map.level = 'underlay'
-
-    plot.xaxis.visible = True
-    plot.yaxis.visible = True
-    
-    
-    """PRECIPITATION LAYER"""
+def getPrecipMap(plot, date_user):
     
     def create_plot_precip(plot, source, color):
         plot.circle(x='LON', y='LAT', size=5, fill_color=color, line_color = color, fill_alpha=0.5, line_alpha=0., source=source)
@@ -118,7 +93,106 @@ def getMap(date_user):
     create_plot_precip(plot, source4,'#479AC8')
     create_plot_precip(plot, source5,'#327FAA')
     create_plot_precip(plot, source6,'#306B8B')
+
+
+def getFireMap(plot):
     
+    def create_plot_fire(plot, source, color):
+        plot.circle(x='LON', y='LAT', size=10, fill_color=color, line_color = color, fill_alpha=0.5, line_alpha=0., source=source)
+    
+    from import_modis_hdf import get_modis_data
+    
+    date_user = "28/08/2020"
+    
+    data = get_modis_data(date_user, directory='data/MOD14A2/')
+    
+    for tile in data:
+        
+        
+        # Cat 3 non-fire water
+        #cat3 = tile[2] == 3
+        # Cat 5 non-fire land
+        #cat5 = tile[2] == 5
+        # Cat 7 fire (low confidence)
+        cat7 = tile[2] == 7
+        # Cat 8 fire (nominal confidence)
+        cat8 = tile[2] == 8
+        # 9 fire (high confidence)
+        cat9 = tile[2] == 9
+        # Other
+        # catX = (tile[2] != 7) & (tile[2] != 8) & (tile[2] != 9)
+    
+        # Range 1
+        # tripla1[0] corresponds to time coord, tripla1[1] corresponds to lon, tripla1[2] corresponds to lat
+        tripla1 = np.where(cat7 == True)
+        lon1 = tile[1][tripla1[1]][:,0]
+        lat1 = tile[0][tripla1[0]][:,0]
+        # Range 2
+        tripla2 = np.where(cat8 == True)
+        lon2 = tile[1][tripla2[1]][:,0]
+        lat2 = tile[0][tripla2[0]][:,0]
+        # Range 3
+        tripla3 = np.where(cat9 == True)
+        lon3 = tile[1][tripla3[1]][:,0]
+        lat3 = tile[0][tripla3[0]][:,0]
+        
+        """
+        # Range 4
+        tripla4 = np.where(cat3 == True)
+        lon4 = tile[1][tripla4[1]][:,0]
+        lat4 = tile[0][tripla4[0]][:,0]
+        # Range 5
+        tripla5 = np.where(cat5 == True)
+        lon5 = tile[1][tripla5[1]][:,0]
+        lat5 = tile[0][tripla5[0]][:,0]
+        """
+        
+        print(lat1, lon1)
+
+        source1 = ColumnDataSource(data=wgs84_to_web_mercator(lon1, lat1))
+        source2 = ColumnDataSource(data=wgs84_to_web_mercator(lon2, lat2))
+        source3 = ColumnDataSource(data=wgs84_to_web_mercator(lon3, lat3))
+        #source4 = ColumnDataSource(data=wgs84_to_web_mercator(lon4, lat4))
+        #source5 = ColumnDataSource(data=wgs84_to_web_mercator(lon5, lat5))
+    
+        create_plot_fire(plot, source1,'#F1C40F')
+        create_plot_fire(plot, source2,'#E67E22')
+        create_plot_fire(plot, source3,'#C0392B')
+        #create_plot_fire(plot, source4,'#AED6F1')
+        #create_plot_fire(plot, source5,'#7DCEA0')
+            
+
+def getMap(date_user):
+    
+    """FIGURE"""
+    
+    tile_provider = get_provider(Vendors.STAMEN_TERRAIN)
+
+    plot = figure(
+        title='Space4Life',
+        match_aspect=True,
+        tools='wheel_zoom,pan,reset,save',
+        x_axis_type='mercator',
+        y_axis_type='mercator',
+        plot_width=1000,
+        plot_height=750
+        )
+
+    plot.grid.visible=True
+    map = plot.add_tile(tile_provider)
+    map.level = 'underlay'
+
+    plot.xaxis.visible = True
+    plot.yaxis.visible = True
+    
+    
+    """PRECIPITATION LAYER"""
+    
+    getPrecipMap(plot, date_user)
+    
+    """FIRE LAYER"""
+    
+    getFireMap(plot)
     
     """MOVEBANK LAYER"""
     
@@ -154,7 +228,7 @@ def getMap(date_user):
             '@{individual-local-identifier}': 'printf',
             '@{timestamp}': 'datetime',
         },
-    mode = 'mouse'
-))
+        mode = 'mouse'
+    ))
 
     return plot
