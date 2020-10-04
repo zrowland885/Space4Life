@@ -4,7 +4,7 @@ Created for 2020 SpaceApps 'Scanning for Lifeforms' Challenge
 
 Hosted on: https://space4life.herokuapp.com/
 
-Presentation: 
+Presentation: https://drive.google.com/file/d/1xVzHC0e0jawx_a7hnd79AS-aU2eR7sQR/view?usp=sharing
 
 # References
 
