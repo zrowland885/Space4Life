@@ -1,7 +1,29 @@
+bokeh @ file:///C:/ci/bokeh_1598903598944/work
+certifi==2020.6.20
+cftime @ file:///C:/ci/cftime_1595379427825/work
 click==7.1.2
 Flask==1.1.2
-gunicorn==20.0.4
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
+mkl-fft==1.2.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+netCDF4==1.5.3
+numpy @ file:///C:/ci/numpy_and_numpy_base_1596215850360/work
+olefile==0.46
+packaging==20.4
+pandas @ file:///C:/ci/pandas_1601558512044/work
+Pillow @ file:///C:/ci/pillow_1594298230227/work
+pyhdf==0.10.2
+pyparsing==2.4.7
+pyproj==2.6.1.post1
+python-dateutil==2.8.1
+pytz==2020.1
+PyYAML==5.3.1
+six==1.15.0
+tornado==6.0.4
+typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1598376058250/work
 Werkzeug==1.0.1
+wincertstore==0.2
+xarray @ file:///tmp/build/80754af9/xarray_1600709862930/work
