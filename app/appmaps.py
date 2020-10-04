@@ -28,7 +28,7 @@ def wgs84_to_web_mercator(lon, lat, df=None):
         return pd.DataFrame({'LAT': latMER, 'LON': lonMER}) 
 
 
-def getMap():
+def getMap(date_user):
     
     """FIGURE"""
     
@@ -57,7 +57,7 @@ def getMap():
     def create_plot_precip(plot, source, color):
         plot.circle(x='LON', y='LAT', size=5, fill_color=color, line_color = color, fill_alpha=0.5, line_alpha=0., source=source)
     
-    date_user = "20150701"
+    #date_user = "20150701"
     data = xr.open_dataset('data/Dataset_precipitation/3B-DAY.MS.MRG.3IMERG.'+date_user+'-S000000-E235959.V06.nc4.nc4')
     
     # Range 1 : 20 to 80
