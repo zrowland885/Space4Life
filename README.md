@@ -13,7 +13,7 @@ NASA:
 - Giglio, L., Justice, C. (2015). MOD14A2 MODIS/Terra Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid V006 [Data set]. NASA EOSDIS Land Processes DAAC. Accessed 2020-10-04 from https://doi.org/10.5067/MODIS/MOD14A2.006
 
 Movebank:
-Lamb JS, Satgé YG, Jodice PGR (2017) Influence of density-dependent competition on foraging and migratory behavior of a subtropical colonial seabird. Ecology and Evolution 7(16): 6469–6481. doi: 10.1002/ece3.3216
+- Lamb JS, Satgé YG, Jodice PGR (2017) Influence of density-dependent competition on foraging and migratory behavior of a subtropical colonial seabird. Ecology and Evolution 7(16): 6469–6481. doi: 10.1002/ece3.3216
 
 # Authors
 
